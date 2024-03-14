@@ -11,7 +11,7 @@ import time, hashlib
 
 def findNonce(dataToHash, bitsToBeZero):
     print('Código em execução... ')
-#time
+#iniciando  o contador atraves do time 
     StartTime = time.time()
 
     nonce = 0
