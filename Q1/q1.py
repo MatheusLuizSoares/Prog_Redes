@@ -17,7 +17,13 @@ while True:
         ArcDir = os.path.join(strDir, ArcName)
         with open(ArcDir,'rb') as Arc_rb:
             ArcData = Arc_rb.read()
-        Keyword = str(input("Please enter a keyword: "))
+        if not ArcData:
+            print("\nThe file is empty. Please provide a non-empty file.\n")
+            continue
+        Keyword = str(input("Please enter a cripto keyword: "))
+        if not Keyword:
+            print("\nThe password is empty. Please provide a non-empty Keyword.\n")
+            continue
         KeyLen = len(Keyword)
     except FileNotFoundError:
         print("\nThe desired file was not found!\nTry again...\n")
@@ -38,15 +44,15 @@ while True:
     try:
         ArcDest = str(input("Please enter the destination file name: "))
         ArcDestDir = os.path.join(strDir, ArcDest)
-
+        if os.path.exists(ArcDestDir):
+            print("\nThe file already exists. Please provide a another name file.\n")
+            continue
         with open(ArcDestDir, 'wb') as Arc_wb:
             for byte in BytesList:
                 Arc_wb.write(byte.to_bytes(1, byteorder='big'))
     except FileNotFoundError:
-        print("\nThe file name is invalid!\n")
-        usercommand = str(input("\nPress 0 -> Exit\nPress 1 -> Return\n"))
-        if usercommand == 0:
-            sys.exit()
+        print("\nThe file name is invalid!\nCtrl^ to exit.\n")
+        continue
     except:
         print(f"\nERROR: {sys.exc_info()[0]}")
         sys.exit()
