@@ -1,19 +1,22 @@
-import socket
+import socket, datetime
 
-HOST=''
-PORT=5000
+HOST = ''
+PORT = 50000
+clientDir = {}
 
-udp_socket=socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-udp_socket.bind((HOST,PORT))
-
-print("Recebendo mensagens...\n\n")
-
+udpSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+udpSocket.bind((HOST, PORT))
+print('Server on-line...')
 
 while True:
-        msg,cliente=udp_socket.recvfrom(512)
+    data, client = udpSocket.recvfrom(512)
+    data = data.decode('utf-8')
+    chost, cport = client[0], client[1]
+    if data:
+        clientDir[chost] = (cport, (data, datetime.datetime.now()))
+        msg = f'Hello! {chost}, I received your message. \n "{data}"\n'
+        print(f'I received "{data}" from "{client}" at {clientDir[chost][1][1]}')
+        msg = msg.encode('utf-8')
+        udpSocket.sendto(msg, client)
 
-
-        print(cliente,msg.decode('utf-8'))
-
-        
-        udp_socket.close()
+u
