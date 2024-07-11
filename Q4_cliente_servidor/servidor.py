@@ -19,4 +19,3 @@ while True:
         msg = msg.encode('utf-8')
         udpSocket.sendto(msg, client)
 
-u

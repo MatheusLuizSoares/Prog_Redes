@@ -1,4 +1,3 @@
-
 import socket
 
 HOST = '192.168.2.245'
